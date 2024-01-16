@@ -94,7 +94,7 @@ function clickHandler(evt) {
         onClose: (instance) => {
           document.removeEventListener("keydown", escHandler);
         },
-      };
+      }; 
     const instance = basicLightbox.create(
       `<div class="modal">
     <img src="${evt.target.dataset.source}"
