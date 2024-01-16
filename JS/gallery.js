@@ -86,30 +86,32 @@ ul.addEventListener("click", clickHandler);
 
 function clickHandler(evt) {
   evt.preventDefault();
-  if (evt.target.nodeName === "IMG") {
-        const options = {
-      onShow: (instance) => {
-        document.addEventListener("keydown", escHandler);
-      },
-      onClose: (instance) => {
-        document.removeEventListener("keydown", escHandler);
-      },
-    };
+  if (evt.target.nodeName === "IMG") {    
+    const options = {
+        onShow: (instance) => {
+          document.addEventListener("keydown", escHandler);
+        },
+        onClose: (instance) => {
+          document.removeEventListener("keydown", escHandler);
+        },
+      };
     const instance = basicLightbox.create(
       `<div class="modal">
     <img src="${evt.target.dataset.source}"
     alt="${evt.target["alt"]}" />            
                 
-    </div>`,
-      options
-    );
+    </div>`, options);
     instance.show();
-  }
+    instance.element().addEventListener("click", () => instance.close());
+    function escHandler(evt) {
+        if (evt.key === "Escape") {          
+            instance.close();
+          document.removeEventListener("keydown", escHandler);
+        }
+      } 
+  } 
+  
 }
 
-function escHandler(evt) {
-  if (evt.key === "Escape") {
-    instance.close();
-    document.removeEventListener("keydown", escHandler);
-  }
-}
+
+
